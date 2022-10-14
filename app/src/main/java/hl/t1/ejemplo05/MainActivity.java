@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
@@ -110,5 +111,51 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i("DEBUG", "clicked");
+                double op1 = Double.parseDouble(operation1);
+                double op2 = Double.parseDouble(operation2);
+                Log.i("DEBUG", "into if");
+
+                switch (operatorClicked) {
+                    case "+":
+                        result = op1 + op2;
+                        Log.i("DEBUG", "into sw");
+                        break;
+                    case "-":
+                        result = op1 - op2;
+                        Log.i("DEBUG", "into sw");
+                        break;
+                    case "/":
+                        if (op1 == 0 || op2 == 0) {
+                            result = 0;
+                        } else {
+                            result = op1 / op2;
+                        }
+                        Log.i("DEBUG", "into sw");
+                        break;
+                    case "x":
+                        result = op1 * op2;
+                        Log.i("DEBUG", "into sw");
+                        break;
+                    default:
+                        result = op1;
+                }
+
+                if((int)result == result) {
+                    lcd.setText(String.valueOf((int)result));
+                    Log.i("DEBUG", "into checker");
+                }else{
+                    lcd.setText(String.valueOf(result));
+                    Log.i("DEBUG", "into checker");
+                }
+
+                operatorClicked = "";
+                operation1 = "";
+                operation2 = "";
+            }
+        });
     }
 }
