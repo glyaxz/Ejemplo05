@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
         Arrays.stream(btnNumberList).sequential().forEach(btn -> btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, btn.getText(), Toast.LENGTH_SHORT).show();
                 if(operatorClicked == ""){
                     operation1 += (String) btn.getText();
                 }else{
@@ -71,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
         Arrays.stream(btnOperatorsList).sequential().forEach(btn -> btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, btn.getText(), Toast.LENGTH_SHORT).show();
                 operatorClicked = (String) btn.getText();
                 valueClicked = operation1 + operatorClicked + operation2;
                 lcd.setText(valueClicked);
@@ -94,9 +92,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try{
-                    valueClicked = valueClicked.substring(0, valueClicked.length() - 1);
-                    Toast.makeText(MainActivity.this, valueClicked, Toast.LENGTH_SHORT).show();
-                    Log.wtf("DEBUG ======>", "'" + valueClicked + "'");
+                    if(operatorClicked.isEmpty()){
+                        Log.wtf("DEBUG =>","Borrar op1 | " + operation2);
+                        operation1 = operation1.substring(0, operation1.length() - 1);
+                    }else if(!operatorClicked.isEmpty() && operation2.isEmpty()){
+                        Log.wtf("DEBUG =>","Borrar operator");
+                        operatorClicked = "";
+                    }else{
+                        Log.wtf("DEBUG =>","Borrar op2");
+                        operation2 = operation2.substring(0, operation2.length() - 1);
+                    }
+                    valueClicked = operation1 + operatorClicked + operation2;
                     lcd.setText(valueClicked);
                 }catch(StringIndexOutOfBoundsException e){
                     //
