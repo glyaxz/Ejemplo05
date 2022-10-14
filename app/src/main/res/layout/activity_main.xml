@@ -187,6 +187,8 @@
         android:layout_marginBottom="21dp"
         android:clickable="false"
         android:editable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         android:ems="10"
         android:hint="@string/etVisor"
         android:inputType="none|number"
